@@ -1,0 +1,48 @@
+from bs4 import BeautifulSoup
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+
+#Window setting
+root = tk.Tk()
+root.title("몽실몽실 태그 리무버")
+root.geometry("600x450")
+
+#Label text setting
+label1 = ttk.Label(root, text="\n몽실몽실 태그 리무버\n")
+label1.pack()
+label2 = ttk.Label(root, text="\n아래에 HTML 텍스트를 복붙해 주세요!\n")
+label2.pack()
+
+#Textbox setting
+textbox = tk.Text(root, height=20)
+textbox.pack()
+
+#HTML tag removal function
+def removal():
+    htmlget = textbox.get("1.0", "end")
+    soup = BeautifulSoup(htmlget, 'html.parser')
+    text = soup.get_text()
+    messagebox.showinfo("RESULT", text)
+
+#Help button message
+def help():
+    messagebox.showinfo("도움말", """
+    몽실몽실 태그 리무버입니다.\n
+    HTML 태그가 포함된 텍스트를 창에 복붙하시고\n    '지우기!' 버튼을 눌러주세요!\n\n
+    제작: 몽실이\n
+    협찬: 몽실이\n
+    문의: 몽실이(junehoho@naver.com)    
+    """)
+
+#Button function
+trigger = ttk.Button(root, text="지우기!", width=15, command=removal)
+trigger.pack()
+
+trigger2 = ttk.Button(root, text="도움말", width=15, command=help)
+trigger2.pack()
+
+#icon setting
+root.iconbitmap(default='icon.ico')
+
+root.mainloop()
